@@ -1,0 +1,26 @@
+
+name: IAS Scan
+on:
+  push:
+    branches: [ master ]
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - id: my-scan
+        uses: lwright-r7/insightappsec-scan-github-actions@v1.3.1
+        with:
+          region: us
+          api-key: ${{ secrets.IAS_API_KEY }}
+          scan-config-id: '{scanConfigID}'
+          scan-timeout-mins: 60
+          vuln-query: "vulnerability.severity = 'HIGH'"
+      - name: Upload findings
+        if: always()
+        run: echo "${{ steps.my-scan.outputs.scan-findings }}"
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [scan]
+    steps:
+      - name: Deploy artifact
+        run: echo "Deploying..."
