@@ -98,4 +98,4 @@ To execute all tests
 - From the insightappsec-scan-github-actions directory run _npm t_
 
 For a code coverage report
-- From the insightappsec-scan-github-actions directory run _npm run coverage_ 
+- From the insightappsec-scan-github-actions directory run _npm run coverage_
